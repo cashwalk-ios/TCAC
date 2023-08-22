@@ -14,6 +14,17 @@
 		A9F89A0D2A82114E00225B2C /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = A9F89A0C2A82114E00225B2C /* ComposableArchitecture */; };
 		EE625B5D2A89B7FD00BFF7B6 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = EE625B5C2A89B7FD00BFF7B6 /* CombineMoya */; };
 		EE625B5F2A89B7FD00BFF7B6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = EE625B5E2A89B7FD00BFF7B6 /* Moya */; };
+		EE625B622A89BD2600BFF7B6 /* RandomProfileAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE625B612A89BD2600BFF7B6 /* RandomProfileAPI.swift */; };
+		EEAA40E12A8DABD1000990B0 /* GenderTopTapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAA40E02A8DABD1000990B0 /* GenderTopTapView.swift */; };
+		EEAA40E32A8DB99A000990B0 /* RandomProfileFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAA40E22A8DB99A000990B0 /* RandomProfileFeature.swift */; };
+		EEAA40E72A8DFB18000990B0 /* RandomProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAA40E62A8DFB18000990B0 /* RandomProfileDetailView.swift */; };
+		EEAA40F52A8F005E000990B0 /* RandomProfileClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAA40F42A8F005E000990B0 /* RandomProfileClient.swift */; };
+		EECD0A692A89EAD4009742A2 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = EECD0A682A89EAD4009742A2 /* Kingfisher */; };
+		EECD0A6B2A89EB62009742A2 /* RandomProfileRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECD0A6A2A89EB62009742A2 /* RandomProfileRow.swift */; };
+		EEE0015A2A89BEA5004BD184 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE001592A89BEA5004BD184 /* Constants.swift */; };
+		EEE0015D2A89BF55004BD184 /* GenderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE0015C2A89BF55004BD184 /* GenderType.swift */; };
+		EEE001602A89BFD3004BD184 /* RandomProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE0015F2A89BFD3004BD184 /* RandomProfileResponse.swift */; };
+		EEE001622A89C089004BD184 /* RandomProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE001612A89C089004BD184 /* RandomProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +33,16 @@
 		A9F899FF2A82110500225B2C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A9F89A012A82110700225B2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9F89A042A82110700225B2C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EE625B612A89BD2600BFF7B6 /* RandomProfileAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomProfileAPI.swift; sourceTree = "<group>"; };
+		EEAA40E02A8DABD1000990B0 /* GenderTopTapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderTopTapView.swift; sourceTree = "<group>"; };
+		EEAA40E22A8DB99A000990B0 /* RandomProfileFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomProfileFeature.swift; sourceTree = "<group>"; };
+		EEAA40E62A8DFB18000990B0 /* RandomProfileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomProfileDetailView.swift; sourceTree = "<group>"; };
+		EEAA40F42A8F005E000990B0 /* RandomProfileClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomProfileClient.swift; sourceTree = "<group>"; };
+		EECD0A6A2A89EB62009742A2 /* RandomProfileRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomProfileRow.swift; sourceTree = "<group>"; };
+		EEE001592A89BEA5004BD184 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		EEE0015C2A89BF55004BD184 /* GenderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderType.swift; sourceTree = "<group>"; };
+		EEE0015F2A89BFD3004BD184 /* RandomProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomProfileResponse.swift; sourceTree = "<group>"; };
+		EEE001612A89C089004BD184 /* RandomProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EECD0A692A89EAD4009742A2 /* Kingfisher in Frameworks */,
 				EE625B5D2A89B7FD00BFF7B6 /* CombineMoya in Frameworks */,
 				A9F89A0D2A82114E00225B2C /* ComposableArchitecture in Frameworks */,
 				EE625B5F2A89B7FD00BFF7B6 /* Moya in Frameworks */,
@@ -57,8 +79,14 @@
 		A9F899FC2A82110500225B2C /* TCA_C */ = {
 			isa = PBXGroup;
 			children = (
+				EEE0015E2A89BFC8004BD184 /* Model */,
+				EEE001582A89BE9B004BD184 /* Utils */,
+				EE625B602A89BD0000BFF7B6 /* Service */,
 				A9F899FD2A82110500225B2C /* TCA_CApp.swift */,
 				A9F899FF2A82110500225B2C /* ContentView.swift */,
+				EEAA40DF2A8DABB0000990B0 /* View */,
+				EEAA40E22A8DB99A000990B0 /* RandomProfileFeature.swift */,
+				EEAA40F32A8F004C000990B0 /* Client */,
 				A9F89A012A82110700225B2C /* Assets.xcassets */,
 				A9F89A032A82110700225B2C /* Preview Content */,
 			);
@@ -71,6 +99,58 @@
 				A9F89A042A82110700225B2C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		EE625B602A89BD0000BFF7B6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				EE625B612A89BD2600BFF7B6 /* RandomProfileAPI.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		EEAA40DF2A8DABB0000990B0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EEE001612A89C089004BD184 /* RandomProfileView.swift */,
+				EECD0A6A2A89EB62009742A2 /* RandomProfileRow.swift */,
+				EEAA40E02A8DABD1000990B0 /* GenderTopTapView.swift */,
+				EEAA40E62A8DFB18000990B0 /* RandomProfileDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EEAA40F32A8F004C000990B0 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				EEAA40F42A8F005E000990B0 /* RandomProfileClient.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		EEE001582A89BE9B004BD184 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				EEE0015B2A89BF4A004BD184 /* Enums */,
+				EEE001592A89BEA5004BD184 /* Constants.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		EEE0015B2A89BF4A004BD184 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				EEE0015C2A89BF55004BD184 /* GenderType.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		EEE0015E2A89BFC8004BD184 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EEE0015F2A89BFD3004BD184 /* RandomProfileResponse.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -93,6 +173,7 @@
 				A9F89A0C2A82114E00225B2C /* ComposableArchitecture */,
 				EE625B5C2A89B7FD00BFF7B6 /* CombineMoya */,
 				EE625B5E2A89B7FD00BFF7B6 /* Moya */,
+				EECD0A682A89EAD4009742A2 /* Kingfisher */,
 			);
 			productName = TCA_C;
 			productReference = A9F899FA2A82110500225B2C /* TCA_C.app */;
@@ -125,6 +206,7 @@
 			packageReferences = (
 				A9F89A0B2A82114E00225B2C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				EE625B5B2A89B7FD00BFF7B6 /* XCRemoteSwiftPackageReference "Moya" */,
+				EECD0A672A89EAD4009742A2 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = A9F899FB2A82110500225B2C /* Products */;
 			projectDirPath = "";
@@ -152,8 +234,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EECD0A6B2A89EB62009742A2 /* RandomProfileRow.swift in Sources */,
+				EEAA40E72A8DFB18000990B0 /* RandomProfileDetailView.swift in Sources */,
 				A9F89A002A82110500225B2C /* ContentView.swift in Sources */,
+				EEAA40E32A8DB99A000990B0 /* RandomProfileFeature.swift in Sources */,
+				EEE001622A89C089004BD184 /* RandomProfileView.swift in Sources */,
+				EEE001602A89BFD3004BD184 /* RandomProfileResponse.swift in Sources */,
+				EE625B622A89BD2600BFF7B6 /* RandomProfileAPI.swift in Sources */,
 				A9F899FE2A82110500225B2C /* TCA_CApp.swift in Sources */,
+				EEAA40E12A8DABD1000990B0 /* GenderTopTapView.swift in Sources */,
+				EEAA40F52A8F005E000990B0 /* RandomProfileClient.swift in Sources */,
+				EEE0015A2A89BEA5004BD184 /* Constants.swift in Sources */,
+				EEE0015D2A89BF55004BD184 /* GenderType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +374,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TCA_C/Preview Content\"";
-				DEVELOPMENT_TEAM = S63RBKT6UQ;
+				DEVELOPMENT_TEAM = H2N9KXXP3M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -290,6 +382,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -311,7 +404,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TCA_C/Preview Content\"";
-				DEVELOPMENT_TEAM = S63RBKT6UQ;
+				DEVELOPMENT_TEAM = H2N9KXXP3M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -319,6 +412,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -372,6 +466,14 @@
 				minimumVersion = 15.0.0;
 			};
 		};
+		EECD0A672A89EAD4009742A2 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -389,6 +491,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EE625B5B2A89B7FD00BFF7B6 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		EECD0A682A89EAD4009742A2 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EECD0A672A89EAD4009742A2 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
