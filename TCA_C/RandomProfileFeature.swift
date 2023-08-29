@@ -13,8 +13,8 @@ struct RandomProfileFeature: Reducer {
     
     struct State: Equatable {
         @BindingState var genderType: GenderType = .male
-        var maleProfile: [RandomProfileData] = []
-        var femaleProfile: [RandomProfileData] = []
+        @BindingState var maleProfile: [RandomProfileData] = []
+        @BindingState var femaleProfile: [RandomProfileData] = []
         var malePage: Int = 1
         var femalePage: Int = 1
         var isLoading: Bool = false
@@ -37,6 +37,7 @@ struct RandomProfileFeature: Reducer {
         case maleProfileResponse([RandomProfileData])
         case femaleProfileResponse([RandomProfileData])
         case pullToRefresh(GenderType)
+        case removeProfile(Int)
     }
     
     @Dependency(\.randomProfile) var ramdomProfile
@@ -99,6 +100,14 @@ struct RandomProfileFeature: Reducer {
                         await send(.request(.female, 1))
                     }
                 }
+            case let .removeProfile(index):
+                switch state.genderType {
+                case .female:
+                    state.femaleProfile.remove(at: index)
+                case .male:
+                    state.maleProfile.remove(at: index)
+                }
+                return .none
             }
         }
     }
