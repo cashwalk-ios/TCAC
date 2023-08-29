@@ -24,60 +24,63 @@ struct RandomProfileView: View {
             NavigationView {
                 VStack(spacing: 0) {
                     GenderTopTapView(genderType: viewStore.$genderType)
-                    
-                    GeometryReader { proxy in
-                        TabView(selection: viewStore.$genderType) {
-                            List(viewStore.maleProfile) { item in
-                                ZStack{
-                                    RandomProfileRow(profileInfo: item)
-                                        .onAppear {
-                                            // MARK: pull to refresh 시에도 호출되고있음;;;
-                                            if viewStore.maleProfile.last == item {
-                                                viewStore.send(.request(.male, viewStore.malePage))
-                                            }
-                                        }
-                                    NavigationLink(destination: RandomProfileDetailView(profile: item)) {
-                                        EmptyView()
-                                    }
-                                    .opacity(0.0)
-                                    .buttonStyle(PlainButtonStyle())
-                                    
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                viewStore.send(.changeColumnButtonTapped)
+                            }, label: {
+                                HStack {
+                                    Text("보기 옵션 : \(viewStore.columnCount)열")
+                                        .foregroundColor(Color.black)
                                 }
-                                
-                            }
-                            .frame(width: proxy.size.width, height: proxy.size.height)
-                            .listStyle(.plain)
-                            
-                            .tag(GenderType.male)
-                            .refreshable {
-                                viewStore.send(.pullToRefresh(.male))
-                            }
-                            
-                            List(viewStore.femaleProfile) { item in
-                                ZStack{
-                                    RandomProfileRow(profileInfo: item)
-                                        .onAppear {
-                                            // MARK: pull to refresh 시에도 호출되고있음;;;
-                                            if viewStore.femaleProfile.last == item {
-                                                viewStore.send(.request(.female, viewStore.femalePage))
-                                            }
+                            })
+                            .padding(.trailing, 20)
+                            .padding(.top, 10)
+                        }
+                        GeometryReader { proxy in
+                            TabView(selection: viewStore.$genderType) {
+                                let columns = Array(repeating: GridItem(.flexible()), count: viewStore.columnCount)
+                                ScrollView {
+                                    LazyVGrid(columns: columns, spacing: 10) {
+                                        ForEach(viewStore.maleProfile.indices, id: \.self) { index in
+                                            RandomProfileRow(profileInfo: viewStore.maleProfile[index], columnCount: viewStore.columnCount)
+                                                .onAppear {
+                                                    // MARK: pull to refresh 시에도 호출되고있음;;;
+                                                    //                                            if viewStore.femaleProfile.last == viewStore.femaleProfile[index] {
+                                                    //                                                viewStore.send(.request(.male, viewStore.femalePage))
+                                                    //                                            }
+                                                }
+//                                            NavigationLink(destination: RandomProfileDetailView(profile: viewStore.maleProfile[index])) {
+//                                                EmptyView()
+//                                            }
                                         }
-                                    NavigationLink(destination: RandomProfileDetailView(profile: item)) {
-                                        EmptyView()
                                     }
-                                    .opacity(0.0)
-                                    .buttonStyle(PlainButtonStyle())
-                                    
                                 }
+                                .padding(10)
+                                .frame(width: proxy.size.width, height: proxy.size.height)
+                                .tag(GenderType.male)
                                 
-                            }
-                            .frame(width: proxy.size.width, height: proxy.size.height)
-                            .listStyle(.plain)
-                            .tag(GenderType.female)
-                            .refreshable {
-                                viewStore.send(.pullToRefresh(.female))
-                            }
-                        }.tabViewStyle(.page)
+                                ScrollView {
+                                    LazyVGrid(columns: columns, spacing: 10) {
+                                        ForEach(viewStore.femaleProfile.indices, id: \.self) { index in
+                                            RandomProfileRow(profileInfo: viewStore.femaleProfile[index], columnCount: viewStore.columnCount)
+                                                .onAppear {
+                                                    // MARK: pull to refresh 시에도 호출되고있음;;;
+                                                    //                                            if viewStore.femaleProfile.last == viewStore.femaleProfile[index] {
+                                                    //                                                viewStore.send(.request(.male, viewStore.femalePage))
+                                                    //                                            }
+                                                }
+//                                            NavigationLink(destination: RandomProfileDetailView(profile: viewStore.femaleProfile[index])) {
+//                                                EmptyView()
+//                                            }
+                                        }
+                                    }
+                                }
+                                .frame(width: proxy.size.width, height: proxy.size.height)
+                                .tag(GenderType.female)
+                            }.tabViewStyle(.page)
+                        }
                     }
                 }
                 .navigationTitle("랜덤 프로필")
@@ -90,5 +93,15 @@ struct RandomProfileView: View {
             store.send(.request(.female, 1))
         }
         
+    }
+}
+
+struct RandomProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        let store = Store(initialState: RandomProfileFeature.State()) {
+            RandomProfileFeature()
+                ._printChanges()
+        }
+        RandomProfileView(store: store)
     }
 }

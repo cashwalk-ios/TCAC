@@ -18,6 +18,7 @@ struct RandomProfileFeature: Reducer {
         var malePage: Int = 1
         var femalePage: Int = 1
         var isLoading: Bool = false
+        var columnCount: Int = 1
     }
     
     // 바인딩을 하기 위해서는 BindingState 프로퍼티 래퍼가 필요함
@@ -30,6 +31,7 @@ struct RandomProfileFeature: Reducer {
     enum Action: BindableAction {
         case binding(BindingAction<State>)
         case request(GenderType, Int)
+        case changeColumnButtonTapped
         case maleTapped
         case femaleTapped
         case maleProfileResponse([RandomProfileData])
@@ -49,6 +51,10 @@ struct RandomProfileFeature: Reducer {
             case .femaleTapped:
                 state.genderType = .female
                 return .none
+            case .changeColumnButtonTapped:
+                state.columnCount = state.columnCount == 1 ? 2 : 1
+                return .none
+                
             case .binding(_):
                 return .none
             case .request(let genderType, let page):
