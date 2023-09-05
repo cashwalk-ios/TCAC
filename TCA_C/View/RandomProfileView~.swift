@@ -47,7 +47,7 @@ struct RandomProfileView: View {
                                     .frame(width: proxy.size.width, height: proxy.size.height)
                                 
                             }.tabViewStyle(.page)
-                        }.ignoresSafeArea()
+                        }
                     }
                 }
                 .navigationTitle("랜덤 프로필")
@@ -96,24 +96,9 @@ struct RandomProfileGenderScrollView: View {
                                 })
                             )
                         }
-                        .onAppear {
-                            switch genderType {
-                            case .male:
-                                if index > (viewStore.malePage - 1) * 14 - 2 {
-                                    viewStore.send(.request(.male, viewStore.malePage))
-                                }
-                            case .female:
-                                if index > (viewStore.femalePage - 1) * 14 - 2 {
-                                    viewStore.send(.request(.female, viewStore.femalePage))
-                                }
-                            }
-                        }
-                        
                 }
             }
-            
         }
-        .refreshable { viewStore.send(.pullToRefresh(genderType)) }
         .highPriorityGesture(TapGesture())
         .padding(10)
         .tag(genderType)

@@ -76,6 +76,7 @@ struct RandomProfileFeature: Reducer {
                 } else {
                     state.maleProfile += response
                 }
+                state.malePage += 1
                 return .none
             case .maleProfileResponse(.failure):
                 return .none
@@ -86,6 +87,7 @@ struct RandomProfileFeature: Reducer {
                 } else {
                     state.femaleProfile += response
                 }
+                state.femalePage += 1
                 return .none
             case .femaleProfileResponse(.failure):
                 return .none
