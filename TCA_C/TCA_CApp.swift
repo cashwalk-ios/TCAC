@@ -7,11 +7,17 @@
 
 import SwiftUI
 
+import ComposableArchitecture
+
 @main
 struct TCA_CApp: App {
+    static let store = Store(initialState: RandomProfileFeature.State()) {
+        RandomProfileFeature()
+            ._printChanges()
+    }
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RandomProfileView(store: TCA_CApp.store)
         }
     }
 }
