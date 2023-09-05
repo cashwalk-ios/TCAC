@@ -47,7 +47,7 @@ struct RandomProfileView: View {
                                     .frame(width: proxy.size.width, height: proxy.size.height)
                                 
                             }.tabViewStyle(.page)
-                        }
+                        }.ignoresSafeArea()
                     }
                 }
                 .navigationTitle("랜덤 프로필")

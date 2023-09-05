@@ -55,23 +55,21 @@ struct RandomProfileFeature: Reducer {
             case .changeColumnButtonTapped:
                 state.columnCount = state.columnCount == 1 ? 2 : 1
                 return .none
-                
             case .binding(_):
                 return .none
             case .request(let genderType, let page):
                 return .run { send in
-                    if genderType == .male {
+                    switch genderType {
+                    case .male:
                         await send(.maleProfileResponse(
                             TaskResult { try await ramdomProfile.fetch(page, genderType) }
                         ))
-                    } else {
+                    case .female:
                         await send(.femaleProfileResponse(
                             TaskResult { try await ramdomProfile.fetch(page, genderType) }
                         ))
                     }
                 }
-                
-                
             case .maleProfileResponse(.success(let response)):
                 if state.malePage == 1 {
                     state.maleProfile = response
@@ -95,12 +93,13 @@ struct RandomProfileFeature: Reducer {
                 return .none
                 
             case .pullToRefresh(let genderType):
-                if genderType == .male {
+                switch genderType {
+                case .male:
                     state.malePage = 1
                     return .run { send in
                         await send(.request(.male, 1))
                     }
-                } else {
+                case .female:
                     state.femalePage = 1
                     return .run { send in
                         await send(.request(.female, 1))
