@@ -45,8 +45,40 @@ struct RandomProfileView: View {
                             TabView(selection: viewStore.$genderType) {
                                 RandomProfileGenderScrollView(viewStore: viewStore, genderType: .male)
                                     .frame(width: proxy.size.width, height: proxy.size.height)
-                                RandomProfileGenderScrollView(viewStore: viewStore, genderType: .female)
-                                    .frame(width: proxy.size.width, height: proxy.size.height)
+                                
+                                ScrollView {
+                                    let columns = Array(repeating: GridItem(.flexible()), count: viewStore.columnCount)
+                                    LazyVGrid(columns: columns, spacing: 10) {
+                                        ForEach(viewStore.femaleProfile.indices, id: \.self) { index in
+                                            RandomProfileRow(profileInfo: viewStore.femaleProfile[index], columnCount: viewStore.columnCount)
+                                                .simultaneousGesture(
+                                                    LongPressGesture(minimumDuration: 0.5)
+                                                        .onEnded { _ in
+                                                            showingAlert = true
+                                                            indexToDelete = index
+                                                        }
+                                                )
+                                                .alert(isPresented: $showingAlert) {
+                                                    Alert(
+                                                        title: Text("삭제할까요?"), message: nil,
+                                                        primaryButton: .default(Text("NO"), action: {
+                                                            showingAlert = false
+                                                        }),
+                                                        secondaryButton: .destructive(Text("Remove"), action: {
+                                                            guard let indexToDelete = indexToDelete else { return }
+                                                            viewStore.send(.removeProfile(indexToDelete))
+                                                            self.indexToDelete = nil
+                                                            showingAlert = false
+                                                        })
+                                                    )
+                                                }
+                                        }
+                                    }
+                                }
+                                .highPriorityGesture(TapGesture())
+                                .padding(10)
+                                .frame(width: proxy.size.width, height: proxy.size.height)
+                                .tag(GenderType.female)
                             }.tabViewStyle(.page)
                         }
                     }
@@ -60,7 +92,6 @@ struct RandomProfileView: View {
             store.send(.request(.male, 1))
             store.send(.request(.female, 1))
         }
-        
     }
 }
 
