@@ -34,8 +34,8 @@ struct RandomProfileFeature: Reducer {
         case changeColumnButtonTapped
         case maleTapped
         case femaleTapped
-        case maleProfileResponse([RandomProfileData])
-        case femaleProfileResponse([RandomProfileData])
+        case maleProfileResponse(TaskResult<[RandomProfileData]>)
+        case femaleProfileResponse(TaskResult<[RandomProfileData]>)
         case pullToRefresh(GenderType)
         case removeProfile(Int)
     }
@@ -59,35 +59,39 @@ struct RandomProfileFeature: Reducer {
             case .binding(_):
                 return .none
             case .request(let genderType, let page):
-                
-                // MARK: 네트워크 통신은 Envirment에서 해주어야 하는지..?
                 return .run { send in
                     if genderType == .male {
-                        try await send(.maleProfileResponse(self.ramdomProfile.fetch(page, .male)))
+                        await send(.maleProfileResponse(
+                            TaskResult { try await ramdomProfile.fetch(page, genderType) }
+                        ))
                     } else {
-                        try await send(.femaleProfileResponse(self.ramdomProfile.fetch(page, .female)))
+                        await send(.femaleProfileResponse(
+                            TaskResult { try await ramdomProfile.fetch(page, genderType) }
+                        ))
                     }
                 }
-            case .maleProfileResponse(let maleProfile):
+                
+                
+            case .maleProfileResponse(.success(let response)):
                 if state.malePage == 1 {
-                    state.maleProfile = maleProfile
+                    state.maleProfile = response
                 } else {
-                    state.maleProfile += maleProfile
-                }
-                if !maleProfile.isEmpty {
-                    state.malePage += 1
+                    state.maleProfile += response
                 }
                 return .none
-            case .femaleProfileResponse(let femaleProfile):
+            case .maleProfileResponse(.failure):
+                return .none
+                
+            case .femaleProfileResponse(.success(let response)):
                 if state.femalePage == 1 {
-                    state.femaleProfile = femaleProfile
+                    state.femaleProfile = response
                 } else {
-                    state.femaleProfile += femaleProfile
-                }
-                if !femaleProfile.isEmpty {
-                    state.femalePage += 1
+                    state.femaleProfile += response
                 }
                 return .none
+            case .femaleProfileResponse(.failure):
+                return .none
+                
             case .pullToRefresh(let genderType):
                 if genderType == .male {
                     state.malePage = 1
