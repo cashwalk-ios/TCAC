@@ -108,9 +108,12 @@ struct RandomProfileGenderScrollView: View {
                                 }
                             }
                         }
+                        
                 }
             }
+            
         }
+        .refreshable { viewStore.send(.pullToRefresh(genderType)) }
         .highPriorityGesture(TapGesture())
         .padding(10)
         .tag(genderType)
