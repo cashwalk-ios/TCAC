@@ -95,6 +95,7 @@ struct RandomProfileView: View {
                                         }
                                     }
                                 }
+                                .padding(10)
                                 .frame(width: proxy.size.width, height: proxy.size.height)
                                 .tag(GenderType.female)
                             }.tabViewStyle(.page)
