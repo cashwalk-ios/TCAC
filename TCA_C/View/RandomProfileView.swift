@@ -26,7 +26,7 @@ struct RandomProfileView: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationView {
                 VStack(spacing: 0) {
-                    GenderTopTapView(genderType: viewStore.$genderType)
+                    GenderTopTapView(selectedGenderType: viewStore.$genderType)
                     VStack {
                         HStack {
                             Spacer()
@@ -43,61 +43,10 @@ struct RandomProfileView: View {
                         }
                         GeometryReader { proxy in
                             TabView(selection: viewStore.$genderType) {
-                                let columns = Array(repeating: GridItem(.flexible()), count: viewStore.columnCount)
-                                ScrollView {
-                                    LazyVGrid(columns: columns, spacing: 10) {
-                                        ForEach(viewStore.maleProfile.indices, id: \.self) { index in
-                                            let profileInfo = viewStore.maleProfile[index]
-                                            
-                                            RandomProfileRow(profileInfo: profileInfo, columnCount: viewStore.columnCount)
-                                                .onAppear {
-                                                    
-                                                }
-                                                .contextMenu {
-                                                    Button {
-                                                        viewStore.send(.removeProfile(index))
-                                                    } label: {
-                                                        Text("Remove")
-                                                    }
-
-                                                }
-                                        }
-                                    }
-                                }
-                                .padding(10)
-                                .frame(width: proxy.size.width, height: proxy.size.height)
-                                .tag(GenderType.male)
-                                
-                                ScrollView {
-                                    LazyVGrid(columns: columns, spacing: 10) {
-                                        ForEach(viewStore.femaleProfile.indices, id: \.self) { index in
-                                            RandomProfileRow(profileInfo: viewStore.femaleProfile[index], columnCount: viewStore.columnCount)
-                                                .simultaneousGesture(
-                                                    LongPressGesture(minimumDuration: 0.5)
-                                                        .onEnded { _ in
-                                                            showingAlert.toggle()
-                                                            indexToDelete = index
-                                                        }
-                                                )
-                                                .alert(isPresented: $showingAlert) {
-                                                    Alert(
-                                                        title: Text("삭제할까요?"), message: nil,
-                                                        primaryButton: .default(Text("NO"), action: {
-                                                            showingAlert.toggle()
-                                                        }),
-                                                        secondaryButton: .destructive(Text("Remove"), action: {
-                                                            guard let indexToDelete = indexToDelete else { return }
-                                                            viewStore.send(.removeProfile(indexToDelete))
-                                                            self.indexToDelete = nil
-                                                        })
-                                                    )
-                                                }
-                                        }
-                                    }
-                                }
-                                .padding(10)
-                                .frame(width: proxy.size.width, height: proxy.size.height)
-                                .tag(GenderType.female)
+                                RandomProfileGenderScrollView(viewStore: viewStore, genderType: .male)
+                                    .frame(width: proxy.size.width, height: proxy.size.height)
+                                RandomProfileGenderScrollView(viewStore: viewStore, genderType: .female)
+                                    .frame(width: proxy.size.width, height: proxy.size.height)
                             }.tabViewStyle(.page)
                         }
                     }
@@ -113,14 +62,34 @@ struct RandomProfileView: View {
         }
         
     }
+}
+
+struct RandomProfileGenderScrollView: View {
+    let viewStore: ViewStore<RandomProfileFeature.State, RandomProfileFeature.Action>
+    let genderType: GenderType
     
-    var longPressGesture: some Gesture {
-        LongPressGesture(minimumDuration: 1)
-            .updating($inDetectingLongPress) { value, gestureState, _ in
-                gestureState = value
-            }.onEnded { value in
-                self.showingAlert.toggle()
+    var body: some View {
+        ScrollView {
+            let columns = Array(repeating: GridItem(.flexible()), count: viewStore.columnCount)
+            LazyVGrid(columns: columns, spacing: 10) {
+                let profile = genderType == .female ? viewStore.femaleProfile : viewStore.maleProfile
+                ForEach(profile.indices, id: \.self) { index in
+                    RandomProfileRow(profileInfo: profile[index], columnCount: viewStore.columnCount)
+                        .onAppear {
+                            
+                        }
+                        .contextMenu {
+                            Button {
+                                viewStore.send(.removeProfile(index))
+                            } label: {
+                                Text("Remove")
+                            }
+                        }
+                }
             }
+        }
+        .padding(10)
+        .tag(genderType)
     }
 }
 
