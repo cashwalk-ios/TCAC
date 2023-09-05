@@ -14,9 +14,14 @@ struct RandomProfileClient {
 }
 
 extension RandomProfileClient: DependencyKey {
+    
     static let liveValue = Self { page, genderType in
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 3 // 요청에 대한 타임아웃 시간 설정 (초 단위)
+        configuration.timeoutIntervalForResource = 3 // 리소스에 대한 타임아웃 시간 설정 (초 단위)
+        let session = URLSession(configuration: configuration)
         do {
-            let (data, _) = try await URLSession.shared
+            let (data, _) = try await session
                 .data(from: URL(string: "https://randomuser.me/api/?page=\(page)&results=14&gender=\(genderType.rawValue)")!)
             if let decodedData = try? JSONDecoder().decode(RandomProfileResponse.self, from: data) {
                 let randomProfile = decodedData.results.map {
