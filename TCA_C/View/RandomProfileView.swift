@@ -15,6 +15,9 @@ import ComposableArchitecture
 struct RandomProfileView: View {
     
     let store: StoreOf<RandomProfileFeature>
+    @GestureState private var inDetectingLongPress = false
+    @State private var showingAlert = false
+    @State var indexToDelete: Int? // 임시
     
     var subscriptions: Set<AnyCancellable> = []
 //    @ObservedObject var viewModel = RandomProfileViewModel()
@@ -44,16 +47,20 @@ struct RandomProfileView: View {
                                 ScrollView {
                                     LazyVGrid(columns: columns, spacing: 10) {
                                         ForEach(viewStore.maleProfile.indices, id: \.self) { index in
-                                            RandomProfileRow(profileInfo: viewStore.maleProfile[index], columnCount: viewStore.columnCount)
+                                            let profileInfo = viewStore.maleProfile[index]
+                                            
+                                            RandomProfileRow(profileInfo: profileInfo, columnCount: viewStore.columnCount)
                                                 .onAppear {
-                                                    // MARK: pull to refresh 시에도 호출되고있음;;;
-                                                    //                                            if viewStore.femaleProfile.last == viewStore.femaleProfile[index] {
-                                                    //                                                viewStore.send(.request(.male, viewStore.femalePage))
-                                                    //                                            }
+                                                    
                                                 }
-//                                            NavigationLink(destination: RandomProfileDetailView(profile: viewStore.maleProfile[index])) {
-//                                                EmptyView()
-//                                            }
+                                                .contextMenu {
+                                                    Button {
+                                                        viewStore.send(.removeProfile(index))
+                                                    } label: {
+                                                        Text("Remove")
+                                                    }
+
+                                                }
                                         }
                                     }
                                 }
@@ -65,18 +72,30 @@ struct RandomProfileView: View {
                                     LazyVGrid(columns: columns, spacing: 10) {
                                         ForEach(viewStore.femaleProfile.indices, id: \.self) { index in
                                             RandomProfileRow(profileInfo: viewStore.femaleProfile[index], columnCount: viewStore.columnCount)
-                                                .onAppear {
-                                                    // MARK: pull to refresh 시에도 호출되고있음;;;
-                                                    //                                            if viewStore.femaleProfile.last == viewStore.femaleProfile[index] {
-                                                    //                                                viewStore.send(.request(.male, viewStore.femalePage))
-                                                    //                                            }
+                                                .simultaneousGesture(
+                                                    LongPressGesture(minimumDuration: 0.5)
+                                                        .onEnded { _ in
+                                                            showingAlert.toggle()
+                                                            indexToDelete = index
+                                                        }
+                                                )
+                                                .alert(isPresented: $showingAlert) {
+                                                    Alert(
+                                                        title: Text("삭제할까요?"), message: nil,
+                                                        primaryButton: .default(Text("NO"), action: {
+                                                            showingAlert.toggle()
+                                                        }),
+                                                        secondaryButton: .destructive(Text("Remove"), action: {
+                                                            guard let indexToDelete = indexToDelete else { return }
+                                                            viewStore.send(.removeProfile(indexToDelete))
+                                                            self.indexToDelete = nil
+                                                        })
+                                                    )
                                                 }
-//                                            NavigationLink(destination: RandomProfileDetailView(profile: viewStore.femaleProfile[index])) {
-//                                                EmptyView()
-//                                            }
                                         }
                                     }
                                 }
+                                .padding(10)
                                 .frame(width: proxy.size.width, height: proxy.size.height)
                                 .tag(GenderType.female)
                             }.tabViewStyle(.page)
@@ -93,6 +112,15 @@ struct RandomProfileView: View {
             store.send(.request(.female, 1))
         }
         
+    }
+    
+    var longPressGesture: some Gesture {
+        LongPressGesture(minimumDuration: 1)
+            .updating($inDetectingLongPress) { value, gestureState, _ in
+                gestureState = value
+            }.onEnded { value in
+                self.showingAlert.toggle()
+            }
     }
 }
 
