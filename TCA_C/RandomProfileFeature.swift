@@ -15,6 +15,7 @@ struct RandomProfileFeature: Reducer {
         @BindingState var genderType: GenderType = .male
         @BindingState var maleProfile: [RandomProfileData] = []
         @BindingState var femaleProfile: [RandomProfileData] = []
+        @BindingState var showingFailureAlert: Bool = false
         var malePage: Int = 1
         var femalePage: Int = 1
         var isLoading: Bool = false
@@ -38,6 +39,7 @@ struct RandomProfileFeature: Reducer {
         case femaleProfileResponse(TaskResult<[RandomProfileData]>)
         case pullToRefresh(GenderType)
         case removeProfile(Int)
+        case retryRequest
     }
     
     @Dependency(\.randomProfile) var ramdomProfile
@@ -77,8 +79,10 @@ struct RandomProfileFeature: Reducer {
                     state.maleProfile += response
                 }
                 state.malePage += 1
+                state.showingFailureAlert = false
                 return .none
-            case .maleProfileResponse(.failure):
+            case .maleProfileResponse(.failure), .femaleProfileResponse(.failure):
+                state.showingFailureAlert = true
                 return .none
                 
             case .femaleProfileResponse(.success(let response)):
@@ -88,8 +92,7 @@ struct RandomProfileFeature: Reducer {
                     state.femaleProfile += response
                 }
                 state.femalePage += 1
-                return .none
-            case .femaleProfileResponse(.failure):
+                state.showingFailureAlert = false
                 return .none
                 
             case .pullToRefresh(let genderType):
@@ -113,6 +116,13 @@ struct RandomProfileFeature: Reducer {
                     state.maleProfile.remove(at: index)
                 }
                 return .none
+            case .retryRequest:
+                state.showingFailureAlert = false
+                let type = state.genderType
+                let page = type == .male ? state.malePage : state.femalePage
+                return .run { send in
+                    await send(.request(type, page))
+                }
             }
         }
     }

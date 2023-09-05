@@ -15,8 +15,6 @@ import ComposableArchitecture
 struct RandomProfileView: View {
     
     let store: StoreOf<RandomProfileFeature>
-    @GestureState private var inDetectingLongPress = false
-    
     var subscriptions: Set<AnyCancellable> = []
 //    @ObservedObject var viewModel = RandomProfileViewModel()
     
@@ -45,10 +43,18 @@ struct RandomProfileView: View {
                                     .frame(width: proxy.size.width, height: proxy.size.height)
                                 RandomProfileGenderScrollView(viewStore: viewStore, genderType: .female)
                                     .frame(width: proxy.size.width, height: proxy.size.height)
-                                
                             }.tabViewStyle(.page)
                         }.ignoresSafeArea()
                     }
+                }
+                .alert(isPresented: viewStore.$showingFailureAlert) {
+                    Alert(
+                        title: Text("네트워크를 확인해주세요"), message: nil,
+                        primaryButton: .default(Text("Close")),
+                        secondaryButton: .destructive(Text("Retry"), action: {
+                            viewStore.send(.retryRequest)
+                        })
+                    )
                 }
                 .navigationTitle("랜덤 프로필")
                 .navigationBarTitleDisplayMode(.inline)
@@ -63,7 +69,7 @@ struct RandomProfileView: View {
 }
 
 struct RandomProfileGenderScrollView: View {
-    let viewStore: ViewStore<RandomProfileFeature.State, RandomProfileFeature.Action>
+    var viewStore: ViewStore<RandomProfileFeature.State, RandomProfileFeature.Action>
     let genderType: GenderType
     @State private var showingAlert = false
     @State var indexToDelete: Int? // 임시
