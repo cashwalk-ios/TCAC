@@ -80,47 +80,50 @@ struct RandomProfileGenderScrollView: View {
             LazyVGrid(columns: columns, spacing: 10) {
                 let profile = genderType == .female ? viewStore.femaleProfile : viewStore.maleProfile
                 ForEach(profile.indices, id: \.self) { index in
-                    RandomProfileRow(profileInfo: profile[index], columnCount: viewStore.columnCount)
-                        .simultaneousGesture(
-                            LongPressGesture(minimumDuration: 0.5)
-                                .onEnded { _ in
-                                    showingAlert = true
-                                    indexToDelete = index
-                                }
-                        )
-                        .alert(isPresented: $showingAlert) {
-                            Alert(
-                                title: Text("삭제할까요?"), message: nil,
-                                primaryButton: .default(Text("NO"), action: {
-                                    showingAlert = false
-                                }),
-                                secondaryButton: .destructive(Text("Remove"), action: {
-                                    guard let indexToDelete = indexToDelete else { return }
-                                    viewStore.send(.removeProfile(indexToDelete))
-                                    self.indexToDelete = nil
-                                    showingAlert = false
-                                })
-                            )
-                        }
-                        .onAppear {
-                            switch genderType {
-                            case .male:
-                                if index > (viewStore.malePage - 1) * 14 - 2 {
-                                    viewStore.send(.request(.male, viewStore.malePage))
-                                }
-                            case .female:
-                                if index > (viewStore.femalePage - 1) * 14 - 2 {
-                                    viewStore.send(.request(.female, viewStore.femalePage))
-                                }
-                            }
-                        }
-                        
+					NavigationLink {
+						RandomProfileDetailView(profile: profile[index])
+					} label: {
+						RandomProfileRow(profileInfo: profile[index], columnCount: viewStore.columnCount)
+//							.simultaneousGesture(
+//								LongPressGesture(minimumDuration: 0.5)
+//									.onEnded { _ in
+//										showingAlert = true
+//										indexToDelete = index
+//									}
+//							)
+							.alert(isPresented: $showingAlert) {
+								Alert(
+									title: Text("삭제할까요?"), message: nil,
+									primaryButton: .default(Text("NO"), action: {
+										showingAlert = false
+									}),
+									secondaryButton: .destructive(Text("Remove"), action: {
+										guard let indexToDelete = indexToDelete else { return }
+										viewStore.send(.removeProfile(indexToDelete))
+										self.indexToDelete = nil
+										showingAlert = false
+									})
+								)
+							}
+							.onAppear {
+								switch genderType {
+								case .male:
+									if index > (viewStore.malePage - 1) * 14 - 2 {
+										viewStore.send(.request(.male, viewStore.malePage))
+									}
+								case .female:
+									if index > (viewStore.femalePage - 1) * 14 - 2 {
+										viewStore.send(.request(.female, viewStore.femalePage))
+									}
+								}
+							}
+					}
                 }
             }
             
         }
         .refreshable { viewStore.send(.pullToRefresh(genderType)) }
-        .highPriorityGesture(TapGesture())
+//        .highPriorityGesture(TapGesture())
         .padding(10)
         .tag(genderType)
     }
