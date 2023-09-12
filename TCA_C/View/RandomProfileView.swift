@@ -73,6 +73,8 @@ struct RandomProfileGenderScrollView: View {
     let genderType: GenderType
     @State private var showingAlert = false
     @State var indexToDelete: Int? // 임시
+    @State private var isTapped: Bool = false
+    @State private var selectedIndex: Int?
     
     var body: some View {
         ScrollView {
@@ -80,17 +82,29 @@ struct RandomProfileGenderScrollView: View {
             LazyVGrid(columns: columns, spacing: 10) {
                 let profile = genderType == .female ? viewStore.femaleProfile : viewStore.maleProfile
                 ForEach(profile.indices, id: \.self) { index in
-                    NavigationLink {
-                        RandomProfileDetailView(profile: profile[index])
+                    NavigationLink(isActive: $isTapped) {
+                        if let selectedIndex {
+                            RandomProfileDetailView(profile: profile[selectedIndex])
+                        }
                     } label: {
                         RandomProfileRow(profileInfo: profile[index], columnCount: viewStore.columnCount)
-                            .contextMenu {
-                                Button {
-                                    viewStore.send(.removeProfile(index))
-                                } label: {
-                                    Text("Remove")
-                                }
+                            .onTapGesture {
+                                isTapped.toggle()
+                                selectedIndex = index
+                                
                             }
+                            .onLongPressGesture {
+                                print("long Tapped")
+                                selectedIndex = index
+                            }
+//                            .contextMenu {
+//                                Button {
+//                                    viewStore.send(.removeProfile(index))
+//                                } label: {
+//                                    Text("Remove")
+//                                }
+//                            }
+                            
                             .onAppear {
                                 switch genderType {
                                 case .male:
