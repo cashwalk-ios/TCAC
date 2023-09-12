@@ -94,11 +94,11 @@ struct RandomProfileGenderScrollView: View {
                             .onAppear {
                                 switch genderType {
                                 case .male:
-                                    if index > (viewStore.malePage - 1) * 14 - 2 {
+                                    if index > (viewStore.malePage - 1) * 14 - 2 - viewStore.maleRemoveCount {
                                         viewStore.send(.request(.male, viewStore.malePage))
                                     }
                                 case .female:
-                                    if index > (viewStore.femalePage - 1) * 14 - 2 {
+                                    if index > (viewStore.femalePage - 1) * 14 - 2 - viewStore.femaleRemoveCount {
                                         viewStore.send(.request(.female, viewStore.femalePage))
                                     }
                                 }

@@ -16,6 +16,9 @@ struct RandomProfileFeature: Reducer {
         @BindingState var maleProfile: [RandomProfileData] = []
         @BindingState var femaleProfile: [RandomProfileData] = []
         @BindingState var showingFailureAlert: Bool = false
+        @BindingState var maleRemoveCount: Int = .zero
+        @BindingState var femaleRemoveCount: Int = .zero
+        
         var malePage: Int = 1
         var femalePage: Int = 1
         var isLoading: Bool = false
@@ -99,11 +102,13 @@ struct RandomProfileFeature: Reducer {
                 switch genderType {
                 case .male:
                     state.malePage = 1
+                    state.maleRemoveCount = .zero
                     return .run { send in
                         await send(.request(.male, 1))
                     }
                 case .female:
                     state.femalePage = 1
+                    state.femaleRemoveCount = .zero
                     return .run { send in
                         await send(.request(.female, 1))
                     }
@@ -112,8 +117,10 @@ struct RandomProfileFeature: Reducer {
                 switch state.genderType {
                 case .female:
                     state.femaleProfile.remove(at: index)
+                    state.femaleRemoveCount += 1
                 case .male:
                     state.maleProfile.remove(at: index)
+                    state.maleRemoveCount += 1
                 }
                 return .none
             case .retryRequest:
