@@ -39,9 +39,9 @@ struct RandomProfileView: View {
                         }
                         GeometryReader { proxy in
                             TabView(selection: viewStore.$genderType) {
-                                RandomProfileGenderScrollView(viewStore: viewStore, genderType: .male)
+                                RandomProfileGenderScrollView(viewStore: viewStore)
                                     .frame(width: proxy.size.width, height: proxy.size.height)
-                                RandomProfileGenderScrollView(viewStore: viewStore, genderType: .female)
+                                RandomProfileGenderScrollView(viewStore: viewStore)
                                     .frame(width: proxy.size.width, height: proxy.size.height)
                             }.tabViewStyle(.page)
                         }.ignoresSafeArea()
@@ -62,15 +62,13 @@ struct RandomProfileView: View {
             
         }
         .onAppear {
-            store.send(.request(.male, 1))
-            store.send(.request(.female, 1))
+            store.send(.fetchInitData)
         }
     }
 }
 
 struct RandomProfileGenderScrollView: View {
     var viewStore: ViewStore<RandomProfileFeature.State, RandomProfileFeature.Action>
-    let genderType: GenderType
     @State private var showingAlert = false
     @State private var isTapped: Bool = false
     @State private var selectedIndex: Int?
@@ -79,7 +77,7 @@ struct RandomProfileGenderScrollView: View {
         ScrollView {
             let columns = Array(repeating: GridItem(.flexible()), count: viewStore.columnCount)
             LazyVGrid(columns: columns, spacing: 10) {
-                let profile = genderType == .female ? viewStore.femaleProfile : viewStore.maleProfile
+                let profile = viewStore.genderType == .female ? viewStore.femaleProfile : viewStore.maleProfile
                 ForEach(profile.indices, id: \.self) { index in
                     NavigationLink(isActive: $isTapped) {
                         if let selectedIndex {
@@ -111,14 +109,14 @@ struct RandomProfileGenderScrollView: View {
                                 )
                             }
                             .onAppear {
-                                switch genderType {
+                                switch viewStore.genderType {
                                 case .male:
                                     if index > (viewStore.malePage - 1) * 14 - 2 - viewStore.maleRemoveCount {
-                                        viewStore.send(.request(.male, viewStore.malePage))
+                                        viewStore.send(.request)
                                     }
                                 case .female:
                                     if index > (viewStore.femalePage - 1) * 14 - 2 - viewStore.femaleRemoveCount {
-                                        viewStore.send(.request(.female, viewStore.femalePage))
+                                        viewStore.send(.request)
                                     }
                                 }
                             }
@@ -127,9 +125,9 @@ struct RandomProfileGenderScrollView: View {
                 }
             }
         }
-        .refreshable { viewStore.send(.pullToRefresh(genderType)) }
+        .refreshable { viewStore.send(.pullToRefresh) }
         .padding(10)
-        .tag(genderType)
+        .tag(viewStore.genderType)
     }
 }
 

@@ -34,13 +34,12 @@ struct RandomProfileFeature: Reducer {
     
     enum Action: BindableAction {
         case binding(BindingAction<State>)
-        case request(GenderType, Int)
+        case fetchInitData
+        case request
         case changeColumnButtonTapped
-        case maleTapped
-        case femaleTapped
         case maleProfileResponse(TaskResult<[RandomProfileData]>)
         case femaleProfileResponse(TaskResult<[RandomProfileData]>)
-        case pullToRefresh(GenderType)
+        case pullToRefresh
         case removeProfile(Int)
         case retryRequest
     }
@@ -51,27 +50,24 @@ struct RandomProfileFeature: Reducer {
         BindingReducer()
         Reduce { state, action in
             switch action {
-            case .maleTapped:
-                state.genderType = .male
-                return .none
-            case .femaleTapped:
-                state.genderType = .female
-                return .none
             case .changeColumnButtonTapped:
                 state.columnCount = state.columnCount == 1 ? 2 : 1
                 return .none
             case .binding(_):
                 return .none
-            case .request(let genderType, let page):
+            case .request:
+                let gender = state.genderType
+                let page = gender == .male ? state.malePage : state.femalePage
+                
                 return .run { send in
-                    switch genderType {
+                    switch gender {
                     case .male:
                         await send(.maleProfileResponse(
-                            TaskResult { try await ramdomProfile.fetch(page, genderType) }
+                            TaskResult { try await ramdomProfile.fetch(page, gender) }
                         ))
                     case .female:
                         await send(.femaleProfileResponse(
-                            TaskResult { try await ramdomProfile.fetch(page, genderType) }
+                            TaskResult { try await ramdomProfile.fetch(page, gender) }
                         ))
                     }
                 }
@@ -98,19 +94,20 @@ struct RandomProfileFeature: Reducer {
                 state.showingFailureAlert = false
                 return .none
                 
-            case .pullToRefresh(let genderType):
-                switch genderType {
+            case .pullToRefresh:
+                let gender = state.genderType
+                switch gender {
                 case .male:
                     state.malePage = 1
                     state.maleRemoveCount = .zero
                     return .run { send in
-                        await send(.request(.male, 1))
+                        await send(.request)
                     }
                 case .female:
                     state.femalePage = 1
                     state.femaleRemoveCount = .zero
                     return .run { send in
-                        await send(.request(.female, 1))
+                        await send(.request)
                     }
                 }
             case let .removeProfile(index):
@@ -123,12 +120,25 @@ struct RandomProfileFeature: Reducer {
                     state.maleRemoveCount += 1
                 }
                 return .none
+                
             case .retryRequest:
                 state.showingFailureAlert = false
-                let type = state.genderType
-                let page = type == .male ? state.malePage : state.femalePage
                 return .run { send in
-                    await send(.request(type, page))
+                    await send(.request)
+                }
+            case .fetchInitData:
+                return .run { send in
+                    await send(.maleProfileResponse(
+                        TaskResult {
+                            try await ramdomProfile.fetch(1, .male)
+                        }
+                    ))
+                    await send(.femaleProfileResponse(
+                        TaskResult {
+                            try await ramdomProfile.fetch(1, .female)
+                        }
+                    ))
+                    
                 }
             }
         }
