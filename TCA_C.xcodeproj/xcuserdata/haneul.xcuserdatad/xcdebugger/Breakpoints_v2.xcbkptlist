@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "D05F9DE1-2391-49A4-979D-21D33EC660EF"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "26B0EA83-4810-465B-95DF-A8793426CD34"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TCA_C/RandomProfileFeature.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "26B0EA83-4810-465B-95DF-A8793426CD34 - bf16e6023ecebd9e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (inout TCA_C.RandomProfileFeature.State, TCA_C.RandomProfileFeature.Action) -&gt; ComposableArchitecture.Effect&lt;TCA_C.RandomProfileFeature.Action&gt; in TCA_C.RandomProfileFeature.body.getter : some"
+                  moduleName = "TCA_C"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/haneul/Documents/TCAC/TCA_C/RandomProfileFeature.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "1244">
+               </Location>
+               <Location
+                  uuid = "26B0EA83-4810-465B-95DF-A8793426CD34 - bf16e6023ecebdff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (inout TCA_C.RandomProfileFeature.State, TCA_C.RandomProfileFeature.Action) -&gt; ComposableArchitecture.Effect&lt;TCA_C.RandomProfileFeature.Action&gt; in TCA_C.RandomProfileFeature.body.getter : some"
+                  moduleName = "TCA_C"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/haneul/Documents/TCAC/TCA_C/RandomProfileFeature.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "1424">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
