@@ -3,7 +3,7 @@ import ProjectDescriptionHelpers
 
 let project = Project(
   name: "TCA_C",
-  packages: Package.packages,
+  packages: [.TCA, .Moya, .Kingfisher],
   targets: [
     Target(name: "TCA_C",
            platform: .iOS,

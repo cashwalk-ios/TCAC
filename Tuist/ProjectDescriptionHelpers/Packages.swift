@@ -8,9 +8,7 @@
 import ProjectDescription
 
 extension Package {
-  public static let packages: [Package] = [
-    .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", from: "1.4.0"),
-    .package(url: "https://github.com/Moya/Moya", from: "15.0.3"),
-    .package(url: "https://github.com/onevcat/Kingfisher", from: "7.10.0")
-  ]
+  public static let TCA: Package = .remote(url: "https://github.com/pointfreeco/swift-composable-architecture.git", requirement: .upToNextMajor(from: "1.4.0"))
+  public static let Moya: Package = .remote(url: "https://github.com/Moya/Moya", requirement: .upToNextMajor(from: "15.0.3"))
+  public static let Kingfisher: Package = .remote(url: "https://github.com/onevcat/Kingfisher", requirement: .upToNextMajor(from: "7.10.0"))
 }
