@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1913E1F107ED56AE083EAA21 /* GenderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F421CE9EE16E9980A81FAB45 /* GenderType.swift */; };
+		1FED12CD0CBDC524B2C4F10D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 948D16C21EA9FF3AD09F5B02 /* Kingfisher */; };
 		2708AE6F6EE3A62B34538FBF /* RandomProfileFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CCCEACF7CED5F989D452C1 /* RandomProfileFeature.swift */; };
 		3AD63A674FBFE48CEC846E21 /* TuistAssets+TCAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF113223119F68AD7A79020C /* TuistAssets+TCAC.swift */; };
 		4E06C9E9586AED437ED6DED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0767B6DE66D4D6B13D110850 /* Assets.xcassets */; };
@@ -17,9 +18,12 @@
 		732210F9303C6F57D11C186E /* RandomProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758311A3746891891B32E484 /* RandomProfileView.swift */; };
 		749D3F43523CA08C0B299C83 /* GenderTopTapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4576874B6E5C8D18318FB4 /* GenderTopTapView.swift */; };
 		809F80D8E2A1E199F7FA275D /* RandomProfileAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FB6D1470EB90EF2A1FEC3 /* RandomProfileAPI.swift */; };
+		933312424BEA97BAD50308D1 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 76CCFBD4A701979A28E8B68D /* ComposableArchitecture */; };
 		9D311CB496D9335CF99BB04E /* RandomProfileClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1410943D86368CF83E680B3F /* RandomProfileClient.swift */; };
+		9EE7B28AA68E8256AD4CDA86 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 3CBDE636322BEFA39032E75A /* CombineMoya */; };
+		A4F98CA50AF92B0FA62DC58F /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = C0B436ACA00BCCAE7E31F3C7 /* RxMoya */; };
 		BC5A6A06B2FF64DD716DF729 /* TuistBundle+TCAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BF587C6024A2136992BE62 /* TuistBundle+TCAC.swift */; };
-		BD89F590775FEE7E82C8C842 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A33EE3866BCAB572DB05C68F /* Alamofire */; };
+		BD89F590775FEE7E82C8C842 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 027574CD2AF4C68F2F7EDCE8 /* Moya */; };
 		C49CFC8EBDA236711A01A770 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F67D957A1838AEC1B92AAD /* Constants.swift */; };
 		C63C2C21310545C399416FB5 /* RandomProfileRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8775BFB6ED0408001C9C4DEF /* RandomProfileRow.swift */; };
 		F727C1555CEF8F57D1645562 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5030E7B0A76234F7A830ACCD /* ContentView.swift */; };
@@ -63,7 +67,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD89F590775FEE7E82C8C842 /* Alamofire in Frameworks */,
+				BD89F590775FEE7E82C8C842 /* Moya in Frameworks */,
+				9EE7B28AA68E8256AD4CDA86 /* CombineMoya in Frameworks */,
+				A4F98CA50AF92B0FA62DC58F /* RxMoya in Frameworks */,
+				933312424BEA97BAD50308D1 /* ComposableArchitecture in Frameworks */,
+				1FED12CD0CBDC524B2C4F10D /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,7 +247,11 @@
 			);
 			name = TCA_C;
 			packageProductDependencies = (
-				A33EE3866BCAB572DB05C68F /* Alamofire */,
+				027574CD2AF4C68F2F7EDCE8 /* Moya */,
+				3CBDE636322BEFA39032E75A /* CombineMoya */,
+				C0B436ACA00BCCAE7E31F3C7 /* RxMoya */,
+				76CCFBD4A701979A28E8B68D /* ComposableArchitecture */,
+				948D16C21EA9FF3AD09F5B02 /* Kingfisher */,
 			);
 			productName = TCA_C;
 			productReference = 4631CF1DA15148E67D3C524F /* TCA_C.app */;
@@ -264,6 +276,11 @@
 				en,
 			);
 			mainGroup = 9B691F5963ABB4C71569A0F8;
+			packageReferences = (
+				00F796B6764EC301FA00DE17 /* XCRemoteSwiftPackageReference "Moya" */,
+				94071DA719168CF215488C97 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				F4501B9BE920D81C3C3321F9 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = 5FE743F7F3F2E637DCCF62D2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -493,10 +510,53 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		00F796B6764EC301FA00DE17 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
+		94071DA719168CF215488C97 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.0;
+			};
+		};
+		F4501B9BE920D81C3C3321F9 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		A33EE3866BCAB572DB05C68F /* Alamofire */ = {
+		027574CD2AF4C68F2F7EDCE8 /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Alamofire;
+			productName = Moya;
+		};
+		3CBDE636322BEFA39032E75A /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CombineMoya;
+		};
+		76CCFBD4A701979A28E8B68D /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ComposableArchitecture;
+		};
+		948D16C21EA9FF3AD09F5B02 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Kingfisher;
+		};
+		C0B436ACA00BCCAE7E31F3C7 /* RxMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RxMoya;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
