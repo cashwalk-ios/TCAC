@@ -8,7 +8,6 @@
 import Foundation
 
 import Moya
-import CombineMoya
 
 enum RandomProfileAPI {
     case male(Int)
